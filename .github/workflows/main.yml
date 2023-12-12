@@ -1,0 +1,31 @@
+pip install tweepy
+import tweepy
+
+# Configura tus credenciales de Twitter
+consumer_key = 'tu_consumer_key'
+consumer_secret = 'tu_consumer_secret'
+access_token = 'tu_access_token'
+access_token_secret = 'tu_access_token_secret'
+
+# Autenticación con Tweepy
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+api = tweepy.API(auth)
+
+# Función para extraer tweets de un usuario específico
+def get_tweets(username, count=10):
+    tweets = api.user_timeline(screen_name=username, count=count, tweet_mode='extended')
+    return tweets
+
+# Ejemplo de uso
+username = 'nombre_del_usuario'
+tweets = get_tweets(username)
+
+# Verificar tipos de datos y estructura de datos
+print(f'Tipo de datos de tweets: {type(tweets)}')
+
+if tweets:
+    print(f'Tipo de datos de un tweet individual: {type(tweets[0])}')
+    print(f'Estructura de un tweet individual: {tweets[0]._json}')
+else:
+    print('El usuario no tiene tweets o es privado.')
